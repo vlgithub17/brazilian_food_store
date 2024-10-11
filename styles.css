@@ -1,0 +1,27 @@
+.product {
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Spacing inside the card */
+    margin: 10px; /* Spacing between cards */
+    text-align: center; /* Center text inside cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.2s; /* Smooth hover effect */
+}
+
+.product:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.product img {
+    border-radius: 4px; /* Slightly round image corners */
+}
+
+.product h3 {
+    font-size: 1.2em; /* Font size for product name */
+    margin: 10px 0; /* Spacing above and below the name */
+}
+
+.product p {
+    font-size: 1em; /* Font size for price */
+    color: #333; /* Dark gray color for the price */
+}

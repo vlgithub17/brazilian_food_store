@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add product</title>
+  <script src="https://cdn.jsdelivr.net/npm/skapi-js@latest/dist/skapi.js"></script>
+  <script>
+      const skapi = new Skapi('service_id', 'owner_id');
+  </script>
+</head>
+<body>
+  <div id="container">
+    <h1>Add a new product</h1>
+    <form onsubmit="addProduct(event)" enctype="multipart/form-data">
+      <input type="file" name="file" accept="image/*" required>
+      <br>
+      <br>
+      <input name="product" id="product-name" placeholder="Product name" required>
+      <br>
+      <br>
+      <input type="number" name="price" id="price" placeholder="Price" step="0.01" required>
+      <br>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <script>
+    function addProduct(event){
+      let productName = document.getElementById('product-name').value;
+      let price = parseFloat(document.getElementById('price').value);
+
+      let config ={
+        table: 'products',
+        index: {
+          name: 'price',
+          value: price,
+        }
+      }
+
+      skapi.postRecord(event, config).then(record => {
+        productName.innerHTML = '';
+        price.innerHTML = '';
+        console.log(record)
+      }).catch(err => console.log(err))
+    }
+  </script>
+</body>
+</html>

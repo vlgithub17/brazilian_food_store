@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Added Products</title>
+    <script src="https://cdn.jsdelivr.net/npm/skapi-js@latest/dist/skapi.js"></script>
+    <script>
+        const skapi = new Skapi('service_id', 'owner_id');
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="product-container">
+
+    </div>
+
+    <script>
+            skapi.getRecords({
+                table: "products",
+                index: {
+                    name: "price",
+                    value: 5,
+                    condition: '>='
+                },
+            }).then(response => {
+                console.log(response.list);
+                displayProduct(response.list)
+            });
+
+            function displayProduct(product){
+                const productListDiv = document.getElementById("product-container");
+                productListDiv.innerHTML = ""; 
+
+                product.forEach(product => {
+                    const productDiv = document.createElement("div");
+                    productDiv.className = "product";
+
+                    const img = document.createElement("img");
+                    img.src = product.bin.file[0].url;
+                    img.alt = product.bin.file[0].filename;
+                    img.style.width = "100px"; 
+                    img.style.height = "100px"; 
+
+                    const name = document.createElement("h3");
+                    name.textContent = product.data.product;
+
+                    const price = document.createElement("p");
+                    price.textContent = `$${product.index.value.toFixed(2)}`;
+
+                    productDiv.appendChild(img);
+                    productDiv.appendChild(name);
+                    productDiv.appendChild(price);
+
+                    productListDiv.appendChild(productDiv);
+                });
+            }
+    </script>
+</body>
+</html>
